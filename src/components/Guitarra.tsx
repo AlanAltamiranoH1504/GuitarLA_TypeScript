@@ -1,10 +1,12 @@
 import {Fragment} from "react";
+import type {AccionesCarrito} from "../reducers/carritoReducer.ts";
 type GuitarraProps = {
     guitarra: Guitarra,
-    addToCarrito: (item: Guitarra) => void
+    // addToCarrito: (item: Guitarra) => void,
+    dispatch:  React.ActionDispatch<[action: AccionesCarrito]>
 }
 
-const Guitarra = ({guitarra, addToCarrito} : GuitarraProps) => {
+const Guitarra = ({guitarra, dispatch} : GuitarraProps) => {
 
     return (
         <Fragment>
@@ -20,7 +22,7 @@ const Guitarra = ({guitarra, addToCarrito} : GuitarraProps) => {
                         type="button"
                         className="btn btn-dark w-100"
                         onClick={() => {
-                            addToCarrito(guitarra)
+                            dispatch({type: "AddToCarrito", payload: {item: guitarra}})
                         }}
                     >Agregar al Carrito
                     </button>

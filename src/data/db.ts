@@ -7,13 +7,6 @@ export const db : Guitarra[] = [
         price: 299,
     },
     {
-        id: 13,
-        name: "Guitarra de Alan",
-        image: "Sin imagen",
-        description: "Guitarra de Alan",
-        price: 600
-    },
-    {
         id: 2,
         name: 'SRV',
         image: 'guitarra_02',
