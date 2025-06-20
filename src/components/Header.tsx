@@ -1,4 +1,5 @@
 import {Fragment} from "react";
+import type {AccionesCarrito} from "../reducers/carritoReducer.ts";
 
 type HeaderProps = {
     carrito: CarritoItem[];
@@ -8,16 +9,18 @@ type HeaderProps = {
     eliminarElementoCarrito: (id: Guitarra["id"]) => void;
     vaciarCarrito: () => void;
     clearLocalStorage: () => void;
+    dispatch: React.ActionDispatch<[action: AccionesCarrito]>
 }
 
 const Header = (
     {
         carrito,
         totalCarrito,
-        aumentarCantidadProducto,
-        disminuirCantidadProducto,
-        eliminarElementoCarrito,
-        vaciarCarrito
+        // aumentarCantidadProducto,
+        // disminuirCantidadProducto,
+        // eliminarElementoCarrito,
+        // vaciarCarrito,
+        dispatch
     }: HeaderProps) => {
     return (
         <Fragment>
@@ -65,7 +68,11 @@ const Header = (
                                                                 type="button"
                                                                 className="btn btn-dark"
                                                                 onClick={() => {
-                                                                    disminuirCantidadProducto(guitarra.id);
+                                                                    dispatch({
+                                                                        type: "DisminuirCantidad",
+                                                                        payload: {id: guitarra.id}
+                                                                    })
+                                                                    // disminuirCantidadProducto(guitarra.id);
                                                                 }}
                                                             >
                                                                 -
@@ -75,7 +82,11 @@ const Header = (
                                                                 type="button"
                                                                 className="btn btn-dark"
                                                                 onClick={() => {
-                                                                    aumentarCantidadProducto(guitarra.id);
+                                                                    dispatch({
+                                                                        type: "AumentarCantidad",
+                                                                        payload: {id: guitarra.id}
+                                                                    })
+                                                                    // aumentarCantidadProducto(guitarra.id);
                                                                 }}
                                                             >
                                                                 +
@@ -86,7 +97,11 @@ const Header = (
                                                                 className="btn btn-danger"
                                                                 type="button"
                                                                 onClick={() => {
-                                                                    eliminarElementoCarrito(guitarra.id);
+                                                                    dispatch({
+                                                                        type: "EliminarDeCarrito",
+                                                                        payload: {id: guitarra.id}
+                                                                    })
+                                                                    // eliminarElementoCarrito(guitarra.id);
                                                                 }}
                                                             >
                                                                 X
@@ -99,7 +114,10 @@ const Header = (
                                             <p className="text-end">Total pagar: <span
                                                 className="fw-bold">${totalCarrito()}</span></p>
                                             <button className="btn btn-dark w-100 mt-3 p-2"
-                                                    onClick={vaciarCarrito}>Vaciar Carrito
+                                                // onClick={vaciarCarrito}>Vaciar Carrito
+                                                    onClick={() => {
+                                                        dispatch({type: "VaciarCarrito"})
+                                                    }}>Vaciar Carrito
                                             </button>
                                         </Fragment>
                                     )}
